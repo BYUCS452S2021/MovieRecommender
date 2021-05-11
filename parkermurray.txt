@@ -1,0 +1,7 @@
+Hey there, I think this would be a lot of fun. My wife and I have different tastes in movies so this would take a lot of the effort out of finding a movie or show to watch.
+I think from a business aspect this would be a great option to partner with streaming services as well as movie theaters to help them tailor movie experience to their viewers.
+The tech stack seems great! A document Database sounds good for the conversion. Dynamo is legit.
+Legal stuff, I am not to worried about.
+Excited, lets kill this thing.
+
+Parker Murray

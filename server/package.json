@@ -1,0 +1,23 @@
+{
+  "name": "movie-recommender-server",
+  "version": "1.0.0",
+  "description": "A movie recommendation app to help pairs of people find movies they'd both enjoy.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BYUCS452S2021/MovieRecommender.git"
+  },
+  "author": "Jackson Howe, Parker Murray",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BYUCS452S2021/MovieRecommender/issues"
+  },
+  "homepage": "https://github.com/BYUCS452S2021/MovieRecommender#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {}
+}

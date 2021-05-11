@@ -1,0 +1,9 @@
+**/.DS_Store
+.idea
+.env
+
+server/node_modules
+
+ui/node_modules
+ui/.pnp
+ui/.pnp.js
