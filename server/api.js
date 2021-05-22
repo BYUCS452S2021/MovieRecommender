@@ -1,4 +1,4 @@
-const {query, makeError} = require('./utils.js')
+const {query, makeError, hash} = require('./utils.js')
 
 const createUser = async ({username, password, fullName}) => {
   if (!username || !password || !fullName) {
@@ -6,7 +6,7 @@ const createUser = async ({username, password, fullName}) => {
   }
 
   try {
-    await query('INSERT INTO "User" (username, hash, full_name) VALUES ($1, $2, $3)', [username, password, fullName])
+    await query('INSERT INTO "User" (username, hash, full_name) VALUES ($1, $2, $3)', [username, hash(password), fullName])
     const response = await query('SELECT id, username, full_name FROM "User" WHERE username = $1', [username])
     return response.rows[0]
   } catch (err) {

@@ -1,4 +1,5 @@
 const {Client} = require('pg')
+const crypto = require('crypto')
 
 // See https://node-postgres.com/features/queries for details about writing/reading queries
 const query = (...args) => {
@@ -19,4 +20,10 @@ const makeError = (code, message) => ({
   }
 })
 
-module.exports = {query, makeError}
+const hash = password => {
+  const sha512 = crypto.createHash('sha512')
+  sha512.update(password)
+  return sha512.digest('hex')
+}
+
+module.exports = {query, makeError, hash}
