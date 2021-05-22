@@ -11,7 +11,7 @@ createdb "$DB_NAME"
 # Create the tables
 CREATE_TABLES='CREATE TABLE "User" (
   id SERIAL PRIMARY KEY,
-  username VARCHAR(25) NOT NULL,
+  username VARCHAR(25) NOT NULL UNIQUE,
   hash VARCHAR(40) NOT NULL,
   full_name VARCHAR(255)
 );

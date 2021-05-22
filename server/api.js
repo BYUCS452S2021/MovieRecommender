@@ -1,16 +1,44 @@
-const {query} = require('./connection.js')
+const {query, makeError} = require('./utils.js')
 
-const main = async req => {
+const createUser = async ({username, password, fullName}) => {
+  if (!username || !password || !fullName) {
+    throw makeError(400, 'Missing data')
+  }
+
   try {
-    const result = await query('SELECT * FROM "User";')
-    return result.rows
+    await query('INSERT INTO "User" (username, hash, full_name) VALUES ($1, $2, $3)', [username, password, fullName])
+    const response = await query('SELECT id, username, full_name FROM "User" WHERE username = $1', [username])
+    return response.rows[0]
   } catch (err) {
-    return err
+    throw makeError(500, err.detail)
   }
 }
 
-const user = req => {
-  return 'User Page coming soon.'
+const createPair = ({userId, password, partnerId}) => {
+  return ':)'
 }
 
-module.exports = {main, user}
+const getPair = ({userId, password}) => {
+  return ':)'
+}
+
+const getMovie = ({userId, password}) => {
+  return ':)'
+}
+
+const rateMovie = ({userId, password, movieId, rating}) => {
+  return ':)'
+}
+
+const getRecommendation = ({userId, password}) => {
+  return ':)'
+}
+
+module.exports = {
+  createUser,
+  createPair,
+  getPair,
+  getMovie,
+  rateMovie,
+  getRecommendation
+}
