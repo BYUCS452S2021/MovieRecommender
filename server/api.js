@@ -1,4 +1,4 @@
-const {query, makeError, hash} = require('./utils.js')
+const {query, makeError, hash, checkAuth} = require('./utils.js')
 
 const createUser = async ({username, password, fullName}) => {
   if (!username || !password || !fullName) {
@@ -14,23 +14,28 @@ const createUser = async ({username, password, fullName}) => {
   }
 }
 
-const createPair = ({userId, password, partnerId}) => {
+const createPair = async ({userId, password, partnerId}) => {
+  await checkAuth(userId, password)
   return ':)'
 }
 
-const getPair = ({userId, password}) => {
+const getPair = async ({userId, password}) => {
+  await checkAuth(userId, password)
   return ':)'
 }
 
-const getMovie = ({userId, password}) => {
+const getMovie = async ({userId, password}) => {
+  await checkAuth(userId, password)
   return ':)'
 }
 
-const rateMovie = ({userId, password, movieId, rating}) => {
+const rateMovie = async ({userId, password, movieId, rating}) => {
+  await checkAuth(userId, password)
   return ':)'
 }
 
-const getRecommendation = ({userId, password}) => {
+const getRecommendation = async ({userId, password}) => {
+  await checkAuth(userId, password)
   return ':)'
 }
 

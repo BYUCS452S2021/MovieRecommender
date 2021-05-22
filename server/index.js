@@ -21,9 +21,9 @@ app.post('/user', async (req, res) => {
 })
 
 // Pair with a partner
-app.post('/pair', (req, res) => {
+app.post('/pair', async (req, res) => {
   try {
-    const response = api.createPair(req.body)
+    const response = await api.createPair(req.body)
     res.send(response)
   } catch (err) {
     res.status(err.code).send(err.response)
@@ -31,9 +31,9 @@ app.post('/pair', (req, res) => {
 })
 
 // Get current user's partner (if any)
-app.get('/pair', (req, res) => {
+app.get('/pair', async (req, res) => {
   try {
-    const response = api.getPair(req.body)
+    const response = await api.getPair(req.body)
     res.send(response)
   } catch (err) {
     res.status(err.code).send(err.response)
@@ -41,9 +41,9 @@ app.get('/pair', (req, res) => {
 })
 
 // Get a movie to rate
-app.get('/movie', (req, res) => {
+app.get('/movie', async (req, res) => {
   try {
-    const response = api.getMovie(req.body)
+    const response = await api.getMovie(req.body)
     res.send(response)
   } catch (err) {
     res.status(err.code).send(err.response)
@@ -51,9 +51,9 @@ app.get('/movie', (req, res) => {
 })
 
 // Rate a movie
-app.post('/movie', (req, res) => {
+app.post('/movie', async (req, res) => {
   try {
-    const response = api.rateMovie(req.body)
+    const response = await api.rateMovie(req.body)
     res.send(response)
   } catch (err) {
     res.status(err.code).send(err.response)
@@ -61,9 +61,9 @@ app.post('/movie', (req, res) => {
 })
 
 // Get recommendation for pair
-app.get('/recommendation', (req, res) => {
+app.get('/recommendation', async (req, res) => {
   try {
-    const response = api.getRecommendation(req.body)
+    const response = await api.getRecommendation(req.body)
     res.send(response)
   } catch (err) {
     res.status(err.code).send(err.response)

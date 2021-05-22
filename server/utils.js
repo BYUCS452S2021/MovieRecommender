@@ -26,4 +26,16 @@ const hash = password => {
   return sha512.digest('hex')
 }
 
-module.exports = {query, makeError, hash}
+// Call this before any method requiring authentication
+// If credentials are invalid, the function will throw
+const checkAuth = async (userId, password) => {
+  if (!userId || !password) {
+    throw makeError(401, 'Missing authentication information')
+  }
+  const response = await query('SELECT hash FROM "User" WHERE id = $1', [userId])
+  if (hash(password) !== response.rows[0].hash) {
+    throw makeError(401, 'Could not authenticate')
+  }
+}
+
+module.exports = {query, makeError, hash, checkAuth}
