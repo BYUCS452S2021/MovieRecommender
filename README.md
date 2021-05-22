@@ -27,3 +27,6 @@ stack when implementing the project, but I'm also open to other platforms if tea
 
 ### Social
 The app can be advertised initially through word-of-mouth, but could also be advertised on Instagram Ads once monetized.
+
+## Building the App
+See the README files in /ui and /server to set up the frontend and backend servers, respectively.
