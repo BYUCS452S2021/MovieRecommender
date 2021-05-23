@@ -36,8 +36,8 @@ const checkAuth = async token => {
   if (!token) {
     throw makeError(401, 'Missing token')
   }
-  const response = await query('SELECT "user" FROM "AuthToken" WHERE token = $1', [token])
-  const userId = response.rows[0].user
+  const response = await query('SELECT "user" FROM "AuthToken" WHERE token = $1 AND valid = $2', [token, true])
+  const userId = response.rows[0]?.user
   if (userId) {
     return userId
   }

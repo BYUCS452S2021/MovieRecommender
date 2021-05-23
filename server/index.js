@@ -23,6 +23,16 @@ app.post('/login', async (req, res) => {
   }
 })
 
+// Logout
+app.get('/logout', async (req, res) => {
+  try {
+    const response = await api.logout({token: req.header('Authorization')})
+    res.send(response)
+  } catch (err) {
+    res.status(err.code).send(err.response)
+  }
+})
+
 // Create a new user
 app.post('/user', async (req, res) => {
   try {

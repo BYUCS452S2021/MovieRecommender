@@ -24,6 +24,16 @@ const login = async ({username, password}) => {
   }
 }
 
+const logout = async ({token}) => {
+  const userId = await checkAuth(token)
+  try {
+    await query('UPDATE "AuthToken" SET valid = $1 WHERE "user" = $2', [false, userId])
+    return {status: 'ok'}
+  } catch (err) {
+    throw makeError('Logout failed')
+  }
+}
+
 const createUser = async ({username, password, fullName}) => {
   if (!username || !password || !fullName) {
     throw makeError(400, 'Missing data')
@@ -38,11 +48,17 @@ const createUser = async ({username, password, fullName}) => {
   return await login({username, password})
 }
 
-const createPair = async ({token, partnerId}) => {
+const createPair = async ({token, partnerUsername}) => {
   const userId = await checkAuth(token)
 
+  if (!partnerUsername) {
+    throw makeError(400, 'Missing partner username')
+  }
+
+  const partnerIdRequest = await query('SELECT id FROM "User" WHERE username = $1', [partnerUsername])
+  const partnerId = partnerIdRequest.rows[0]?.id
   if (!partnerId) {
-    throw makeError(400, 'Missing partner ID')
+    throw makeError(400, 'Not a valid username')
   }
 
   if (partnerId === userId) {
@@ -91,6 +107,7 @@ const getRecommendation = async ({token}) => {
 
 module.exports = {
   login,
+  logout,
   createUser,
   createPair,
   getPair,

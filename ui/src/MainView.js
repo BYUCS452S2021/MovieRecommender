@@ -16,15 +16,17 @@ import UserContext from './userContext'
 import Recommendations from './Recommendations'
 import RateMovies from './RateMovies'
 import Settings from './Settings'
-import {showAlert} from './utils'
+import { doFetch, showAlert } from "./utils";
 
 const MainView = () => {
   const [selectedTab, setSelectedTab] = useState(0)
   const {user, setUser} = useContext(UserContext)
 
   const logOut = () => {
-    setUser({})
-    showAlert('Logged Out', 'info')
+    doFetch('/logout', 'GET', user.token)
+      .then(() => showAlert('Logged Out', 'info'))
+      .catch(err => showAlert(err))
+      .finally(() => setUser({}))
   }
 
   return (

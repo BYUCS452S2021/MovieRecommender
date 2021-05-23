@@ -20,7 +20,16 @@ const Settings = () => {
   const [input, setInput] = useState(null)
 
   const addPartner = () => {
-
+    setLoading(true)
+    doFetch('/pair', 'POST', user.token, {
+      partnerUsername: input
+    })
+      .then(partner => {
+        setPartnerUsername(partner.username)
+        setPartnerName(partner.full_name)
+      })
+      .catch(err => showAlert(err.message))
+      .finally(() => setLoading(false))
   }
 
   useEffect(() => {
@@ -42,9 +51,15 @@ const Settings = () => {
     )
   } else if (partnerUsername) {
     return (
-      <Byline description={`${partnerName} (${partnerUsername})`}>
-        <Avatar name={partnerName} />
-      </Byline>
+      <>
+        <Text as="div">You are currently paired with:</Text>
+        <Byline
+          description={`${partnerName} (${partnerUsername})`}
+          margin="small"
+        >
+          <Avatar name={partnerName} />
+        </Byline>
+      </>
     )
   } else {
     return (
