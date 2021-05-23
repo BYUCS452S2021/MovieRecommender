@@ -30,7 +30,7 @@ const hash = password => {
 // If credentials are invalid, the function will throw
 const checkAuth = async (userId, password) => {
   if (!userId || !password) {
-    throw makeError(401, 'Missing authentication information')
+    throw makeError(401, 'Could not authenticate')
   }
   const response = await query('SELECT hash FROM "User" WHERE id = $1', [userId])
   if (hash(password) !== response.rows[0].hash) {

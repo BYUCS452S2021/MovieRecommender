@@ -1,5 +1,14 @@
 const {query, makeError, hash, checkAuth} = require('./utils.js')
 
+const login = async ({username, password}) => {
+  if (!username || !password) {
+    throw makeError(400, 'Missing data')
+  }
+  const response = await query('SELECT id, full_name FROM "User" WHERE username = $1', [username])
+  await checkAuth(response.rows?.[0]?.id, password)
+  return response.rows[0]
+}
+
 const createUser = async ({username, password, fullName}) => {
   if (!username || !password || !fullName) {
     throw makeError(400, 'Missing data')
@@ -40,6 +49,7 @@ const getRecommendation = async ({userId, password}) => {
 }
 
 module.exports = {
+  login,
   createUser,
   createPair,
   getPair,

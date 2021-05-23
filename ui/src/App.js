@@ -1,8 +1,15 @@
-import {Heading} from '@instructure/ui-heading'
+import {useState} from 'react'
+
+import SignInPrompt from './SignInPrompt'
+import UserContext from './userContext'
 
 const App = () => {
+  const [user, setUser] = useState({})
+
   return (
-    <Heading as="h1">Hello world</Heading>
+    <UserContext.Provider value={{user, setUser}}>
+      {user.id ? <p>Signed in as {user.name}</p> : <SignInPrompt />}
+    </UserContext.Provider>
   )
 }
 

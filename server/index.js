@@ -1,13 +1,26 @@
 const express = require('express')
+const cors = require('cors')
 const api = require('./api.js')
 
-const app = express()
-app.use(express.json())
 const PORT = 3001
+
+const app = express()
+app.use(cors())
+app.use(express.json())
 
 // Health check
 app.get('/', async (req, res) => {
   res.send({'status': 'ok'})
+})
+
+// Login
+app.post('/login', async (req, res) => {
+  try {
+    const response = await api.login(req.body)
+    res.send(response)
+  } catch (err) {
+    res.status(err.code).send(err.response)
+  }
 })
 
 // Create a new user
