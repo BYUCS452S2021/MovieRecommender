@@ -29,51 +29,46 @@ const MainView = () => {
 
   return (
     <Flex direction="column" margin="x-large">
-      <Flex.Item align="end">
+      <Flex justifyItems="space-between">
+        <Heading level="h1">Welcome, {user.name}!</Heading>
         <Button
           withBackground={false}
           renderIcon={IconUserLine}
           onClick={() => logOut()}
-          margin="0 0 small"
         >
           Log Out
         </Button>
-      </Flex.Item>
-      <Flex.Item>
-        <Heading level="h1">Welcome, {user.name}!</Heading>
-      </Flex.Item>
-      <Flex.Item>
-        <Tabs
-          margin="large 0"
-          onRequestTabChange={(_e, {index}) => setSelectedTab(index)}
-          tabOverflow="scroll"
+      </Flex>
+      <Tabs
+        margin="large 0"
+        onRequestTabChange={(_e, {index}) => setSelectedTab(index)}
+        tabOverflow="scroll"
+      >
+        <Tabs.Panel
+          id="tab-0"
+          renderTitle={<Text><IconVideoLine /> Recommendations</Text>}
+          padding="medium 0"
+          isSelected={selectedTab === 0}
         >
-          <Tabs.Panel
-            id="tab-0"
-            renderTitle={<Text><IconVideoLine /> Recommendations</Text>}
-            padding="medium 0"
-            isSelected={selectedTab === 0}
-          >
-            <Recommendations />
-          </Tabs.Panel>
-          <Tabs.Panel
-            id="tab-1"
-            renderTitle={<Text><IconStarLightLine /> Rate Movies</Text>}
-            padding="medium 0"
-            isSelected={selectedTab === 1}
-          >
-            <RateMovies />
-          </Tabs.Panel>
-          <Tabs.Panel
-            id="tab-2"
-            renderTitle={<Text><IconSettingsLine /> Settings</Text>}
-            padding="medium 0"
-            isSelected={selectedTab === 2}
-          >
-            <Settings />
-          </Tabs.Panel>
-        </Tabs>
-      </Flex.Item>
+          <Recommendations />
+        </Tabs.Panel>
+        <Tabs.Panel
+          id="tab-1"
+          renderTitle={<Text><IconStarLightLine /> Rate Movies</Text>}
+          padding="medium 0"
+          isSelected={selectedTab === 1}
+        >
+          <RateMovies />
+        </Tabs.Panel>
+        <Tabs.Panel
+          id="tab-2"
+          renderTitle={<Text><IconSettingsLine /> Settings</Text>}
+          padding="medium 0"
+          isSelected={selectedTab === 2}
+        >
+          <Settings />
+        </Tabs.Panel>
+      </Tabs>
     </Flex>
   )
 }

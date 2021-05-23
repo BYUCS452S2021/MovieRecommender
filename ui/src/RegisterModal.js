@@ -29,7 +29,7 @@ const RegisterModal = ({open, setOpen}) => {
   }
 
   const handleRegister = () => {
-    doFetch('/user', 'POST', {
+    doFetch('/user', 'POST', undefined, {
       username,
       password,
       fullName: name
@@ -37,7 +37,7 @@ const RegisterModal = ({open, setOpen}) => {
       .then(response => {
         setUser({
           id: response.id,
-          password,
+          token: response.token,
           name
         })
       })

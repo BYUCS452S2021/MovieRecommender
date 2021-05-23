@@ -1,5 +1,6 @@
 const {Client} = require('pg')
 const crypto = require('crypto')
+const {v4: uuidv4} = require('uuid')
 
 // See https://node-postgres.com/features/queries for details about writing/reading queries
 const query = (...args) => {
@@ -26,16 +27,21 @@ const hash = password => {
   return sha512.digest('hex')
 }
 
+const genToken = () =>
+  hash(uuidv4())
+
 // Call this before any method requiring authentication
 // If credentials are invalid, the function will throw
-const checkAuth = async (userId, password) => {
-  if (!userId || !password) {
-    throw makeError(401, 'Could not authenticate')
+const checkAuth = async token => {
+  if (!token) {
+    throw makeError(401, 'Missing token')
   }
-  const response = await query('SELECT hash FROM "User" WHERE id = $1', [userId])
-  if (hash(password) !== response.rows[0].hash) {
-    throw makeError(401, 'Could not authenticate')
+  const response = await query('SELECT "user" FROM "AuthToken" WHERE token = $1', [token])
+  const userId = response.rows[0].user
+  if (userId) {
+    return userId
   }
+  throw makeError(401, 'Could not authenticate')
 }
 
-module.exports = {query, makeError, hash, checkAuth}
+module.exports = {query, makeError, hash, genToken, checkAuth}

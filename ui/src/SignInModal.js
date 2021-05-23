@@ -25,14 +25,14 @@ const SignInModal = ({open, setOpen}) => {
   }
 
   const handleSignIn = () => {
-    doFetch('/login', 'POST', {
+    doFetch('/login', 'POST', undefined, {
       username,
       password
     })
       .then(response => {
         setUser({
           id: response.id,
-          password,
+          token: response.token,
           name: response.full_name
         })
       })

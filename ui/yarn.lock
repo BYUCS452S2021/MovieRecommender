@@ -1719,6 +1719,28 @@
     "@instructure/uid" "8.4.0"
     prop-types "^15"
 
+"@instructure/ui-tabs@^8.4.0":
+  version "8.4.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-tabs/-/ui-tabs-8.4.0.tgz#10a15c9b7ab76a0be7c9b26892c65c6be90602f5"
+  integrity sha512-CxKBwV3vvtkcD2spKe0Y7+i/vOlzAmmenFuRLyU5Fjws0yjUkpVQmhMdo7khWVkw2EPNctJw/Arg51P6Fwccfg==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    "@instructure/console" "8.4.0"
+    "@instructure/debounce" "8.4.0"
+    "@instructure/emotion" "8.4.0"
+    "@instructure/ui-dom-utils" "8.4.0"
+    "@instructure/ui-focusable" "8.4.0"
+    "@instructure/ui-i18n" "8.4.0"
+    "@instructure/ui-motion" "8.4.0"
+    "@instructure/ui-prop-types" "8.4.0"
+    "@instructure/ui-react-utils" "8.4.0"
+    "@instructure/ui-testable" "8.4.0"
+    "@instructure/ui-utils" "8.4.0"
+    "@instructure/ui-view" "8.4.0"
+    "@instructure/uid" "8.4.0"
+    keycode "^2"
+    prop-types "^15"
+
 "@instructure/ui-tag@8.4.0":
   version "8.4.0"
   resolved "https://registry.yarnpkg.com/@instructure/ui-tag/-/ui-tag-8.4.0.tgz#da8df74676c34b065976ad712ac48fdda104d3bd"

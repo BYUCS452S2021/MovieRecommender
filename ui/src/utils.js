@@ -10,7 +10,7 @@ export const showAlert = (message, variant = 'error') => {
     <Alert
       variant={variant}
       margin="x-large"
-      timeout={8000}
+      timeout={5000}
       onDismiss={() => alert.remove()}
       liveRegion={() => document.getElementById('alerts')}
     >
@@ -20,12 +20,13 @@ export const showAlert = (message, variant = 'error') => {
   )
 }
 
-export const doFetch = (path, method = 'GET', body = undefined) =>
+export const doFetch = (path, method, token, body = undefined) =>
   fetch(`http://localhost:3001${path}`, {
     method,
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': token
     },
     body: JSON.stringify(body)
   })

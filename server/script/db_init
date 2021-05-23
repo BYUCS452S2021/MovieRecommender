@@ -30,5 +30,10 @@ CREATE TABLE "Preference" (
   movie SERIAL REFERENCES "Movie"(id),
   rating int NOT NULL,
   PRIMARY KEY ("user", movie)
+);
+CREATE TABLE "AuthToken" (
+  token VARCHAR(128) PRIMARY KEY,
+  "user" SERIAL REFERENCES "User"(id) NOT NULL,
+  valid BOOLEAN NOT NULL
 );'
 psql -d "$DB_NAME" -c "$CREATE_TABLES"
