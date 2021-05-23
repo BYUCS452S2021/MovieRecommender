@@ -23,8 +23,10 @@ const SignInPrompt = () => {
         <Flex.Item>
           <Heading as="h1">Welcome to Movie Recommender</Heading>
         </Flex.Item>
-        <Flex.Item margin="x-small small small">
-          <Text>You're not signed in yet. Click to sign in or register.</Text>
+        <Flex.Item margin="x-small small small" textAlign="center">
+          <Text color="secondary">
+            Movie Recommender helps pairs of people find movies they'd both like to watch.<br />You're not signed in yet. Click to sign in or register.
+          </Text>
         </Flex.Item>
         <Flex.Item>
           <Button

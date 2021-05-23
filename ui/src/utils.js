@@ -2,14 +2,14 @@ import ReactDOM from 'react-dom'
 
 import { Alert } from '@instructure/ui-alerts'
 
-export const showAlert = message => {
+export const showAlert = (message, variant = 'error') => {
   const alertContainer = document.getElementById('alerts')
   const alert = document.createElement('div')
   alertContainer.appendChild(alert)
   ReactDOM.render(
     <Alert
-      variant="error"
-      margin="small"
+      variant={variant}
+      margin="x-large"
       timeout={8000}
       onDismiss={() => alert.remove()}
       liveRegion={() => document.getElementById('alerts')}
