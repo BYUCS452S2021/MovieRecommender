@@ -1,4 +1,5 @@
 const {query, makeError, hash, genToken, checkAuth} = require('./utils.js')
+const movieService = require('./movie-service.js')
 
 const login = async ({username, password}) => {
   if (!username || !password) {
@@ -91,8 +92,23 @@ const getPair = async ({token}) => {
 }
 
 const getMovie = async ({token}) => {
-  const userId = await checkAuth(token)
-  return ':)'
+  await checkAuth(token)
+  const movie = await movieService.getTrendingMovie()
+  try {
+    const result = await query(
+      'INSERT INTO "Movie" (title, api_id, overview, release_date, trailer_url) VALUES ($1, $2, $3, $4, $5) RETURNING id',
+      [movie.original_title, movie.id, movie.overview, movie.release_date, movie.trailerUrl]
+    )
+    return {
+      id: result.rows[0].id,
+      title: movie.title,
+      overview: movie.overview,
+      releaseDate: movie.release_date,
+      trailerUrl: movie.trailerUrl
+    }
+  } catch (err) {
+    throw makeError(500, 'Error getting movie')
+  }
 }
 
 const rateMovie = async ({token, movieId, rating}) => {

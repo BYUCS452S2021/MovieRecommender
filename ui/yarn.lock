@@ -1408,6 +1408,19 @@
     keycode "^2"
     prop-types "^15"
 
+"@instructure/ui-avatar@^8.4.0":
+  version "8.4.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-avatar/-/ui-avatar-8.4.0.tgz#e5aeca2137e00f995af5cd17937cf601c72c7b9d"
+  integrity sha512-/XSfC/lTDq44Ws1v10tkeaiYX1KFRK0vP5zBLv1r64+n334IU5IeSjAXTlcHv4w/2lGyyh0WWB7cE2rJTOpwJg==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    "@instructure/console" "8.4.0"
+    "@instructure/emotion" "8.4.0"
+    "@instructure/ui-react-utils" "8.4.0"
+    "@instructure/ui-testable" "8.4.0"
+    "@instructure/ui-view" "8.4.0"
+    prop-types "^15"
+
 "@instructure/ui-buttons@8.4.0", "@instructure/ui-buttons@^8.4.0":
   version "8.4.0"
   resolved "https://registry.yarnpkg.com/@instructure/ui-buttons/-/ui-buttons-8.4.0.tgz#06a913beb7bb9f6a938d40303180564020ba3c33"
@@ -1429,6 +1442,18 @@
     "@instructure/ui-utils" "8.4.0"
     "@instructure/ui-view" "8.4.0"
     keycode "^2"
+    prop-types "^15"
+
+"@instructure/ui-byline@^8.4.0":
+  version "8.4.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-byline/-/ui-byline-8.4.0.tgz#e84b9c94f0f2f0ce5aff68075fac4c0f73fb61c3"
+  integrity sha512-McXcMwjn3NFC7Y0C2cr27TYsQvYpVuCuan5CYDU3S5zRqFxmBqeGgwaVPS4Wi3ZnV9lSJH/wbxn9y+RQpTd0Xw==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    "@instructure/emotion" "8.4.0"
+    "@instructure/ui-react-utils" "8.4.0"
+    "@instructure/ui-testable" "8.4.0"
+    "@instructure/ui-view" "8.4.0"
     prop-types "^15"
 
 "@instructure/ui-color-utils@8.4.0":
@@ -1704,6 +1729,22 @@
     "@instructure/ui-decorator" "8.4.0"
     "@instructure/ui-dom-utils" "8.4.0"
     "@instructure/ui-utils" "8.4.0"
+    prop-types "^15"
+
+"@instructure/ui-spinner@^8.4.0":
+  version "8.4.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-spinner/-/ui-spinner-8.4.0.tgz#cfacc3164799ff40d1bf5399cf29d558ea00a518"
+  integrity sha512-Q/kkYbQwEjTyeYxZlSb33wJgifdEaGNOqOPyWagbdj3/OPmSITy/1JhqaJgfWdq6O5bgdd3UaZXrOG3k35XH8w==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    "@instructure/console" "8.4.0"
+    "@instructure/emotion" "8.4.0"
+    "@instructure/ui-color-utils" "8.4.0"
+    "@instructure/ui-react-utils" "8.4.0"
+    "@instructure/ui-testable" "8.4.0"
+    "@instructure/ui-utils" "8.4.0"
+    "@instructure/ui-view" "8.4.0"
+    "@instructure/uid" "8.4.0"
     prop-types "^15"
 
 "@instructure/ui-svg-images@8.4.0":

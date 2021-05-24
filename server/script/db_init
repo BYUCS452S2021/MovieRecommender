@@ -18,6 +18,9 @@ CREATE_TABLES='CREATE TABLE "User" (
 CREATE TABLE "Movie" (
   id SERIAL PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
+  overview VARCHAR,
+  release_date VARCHAR,
+  trailer_url VARCHAR,
   api_id VARCHAR(20) NOT NULL
 );
 CREATE TABLE "Pair" (
