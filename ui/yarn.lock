@@ -1852,7 +1852,7 @@
     "@instructure/canvas-theme" "8.4.0"
     "@instructure/instructure-theme" "8.4.0"
 
-"@instructure/ui-tooltip@8.4.0":
+"@instructure/ui-tooltip@8.4.0", "@instructure/ui-tooltip@^8.4.0":
   version "8.4.0"
   resolved "https://registry.yarnpkg.com/@instructure/ui-tooltip/-/ui-tooltip-8.4.0.tgz#ec2995bc413c31b1e10d793225321a15a2efaaa7"
   integrity sha512-ClyHNWgwiwWyQxzb/zIkkW9pzy9qBfc97ZmJNtjG00W4y9B2JiwIa9WGHznQMA4urAViYIU+EQRtMsozB+QXNw==

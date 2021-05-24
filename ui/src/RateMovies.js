@@ -10,39 +10,42 @@ import {Tooltip} from '@instructure/ui-tooltip'
 import {showAlert, doFetch} from './utils'
 import UserContext from './userContext'
 import Attribution from './Attribution'
+import Separator from './Separator'
 
 const RateMovies = () => {
   const {user} = useContext(UserContext)
-  const [loading, setLoading] = useState(true)
+  const [loadingMovie, setLoadingMovie] = useState(false)
+  const [loadingRating, setLoadingRating] = useState(false)
   const [movie, setMovie] = useState(null)
 
   const fetchMovie = () => {
-    setLoading(true)
+    setLoadingMovie(true)
     doFetch('/movie', 'GET', user.token)
       .then(setMovie)
       .catch(err => showAlert(err.message))
-      .finally(() => setLoading(false))
+      .finally(() => setLoadingMovie(false))
   }
 
   useEffect(() => {
     fetchMovie()
     // Only load the first movie on render since we'll request more on-demand
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [user.token])
 
   const rateMovie = rating => {
-    fetchMovie()
+    setLoadingRating(true)
+    doFetch('/movie', 'POST', user.token, {
+      movieId: movie.id,
+      rating
+    })
+      .then(() => {
+        fetchMovie()
+      })
+      .catch(err => showAlert(err.message))
+      .finally(() => setLoadingRating(false))
   }
 
-  const Separator = () => (
-    <hr
-      style={{
-        border: 'none',
-        borderTop: '1px #CCCCCC solid',
-        height: '1px'
-      }}
-    />
-  )
+  const loading = loadingMovie || loadingRating
 
   return (
     <>
@@ -58,7 +61,7 @@ const RateMovies = () => {
           <Heading level="h3" margin="medium 0 small">{movie.title}</Heading>
           <Text as="div">{movie.overview}</Text>
           <View as="div" margin="small 0">
-            <Text weight="light">{movie.releaseDate}</Text>
+            <Text weight="light">Released {movie.releaseDate}</Text>
           </View>
           <View as="div" margin="medium 0">
             {movie.trailerUrl ? (
@@ -77,7 +80,7 @@ const RateMovies = () => {
           <Separator />
           <Heading level="h4" margin="small xx-small 0">Rate {movie.title}</Heading>
           <View display="block">
-            <Tooltip renderTip="Dislike / Wouldn't watch">
+            <Tooltip renderTip="Wouldn't watch / Already seen">
               <Button
                 margin="small xx-small"
                 onClick={() => rateMovie(-1)}
@@ -85,7 +88,7 @@ const RateMovies = () => {
                 -1
               </Button>
             </Tooltip>
-            <Tooltip renderTip="Like / Might watch">
+            <Tooltip renderTip="Might watch">
               <Button
                 margin="small xx-small"
                 onClick={() => rateMovie(1)}
@@ -93,7 +96,7 @@ const RateMovies = () => {
                 +1
               </Button>
             </Tooltip>
-            <Tooltip renderTip="Definitely like / Let's watch it!">
+            <Tooltip renderTip="Let's watch it!">
               <Button
                 margin="small xx-small"
                 onClick={() => rateMovie(2)}

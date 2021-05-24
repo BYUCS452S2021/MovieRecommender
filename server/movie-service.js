@@ -17,11 +17,6 @@ const getTrendingMovie = async () => {
   }
 }
 
-const getTrailerUrl = async movieId => {
-
-}
-
 module.exports = {
-  getTrendingMovie,
-  getTrailerUrl
+  getTrendingMovie
 }

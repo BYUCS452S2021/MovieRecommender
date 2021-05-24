@@ -93,8 +93,14 @@ const getPair = async ({token}) => {
 
 const getMovie = async ({token}) => {
   await checkAuth(token)
-  const movie = await movieService.getTrendingMovie()
+
+  // If the user's partner has some +1s or +2s, show those first
+  // TODO: Fetch a movie that the partner has +1'd or +2'd to rate first, if available
+
+  // Otherwise, get some trending movies from the Movie DB API
+  // TODO: Make this part not return movies that the user has already rated or that the partner has -1'd
   try {
+    const movie = await movieService.getTrendingMovie()
     const result = await query(
       'INSERT INTO "Movie" (title, api_id, overview, release_date, trailer_url) VALUES ($1, $2, $3, $4, $5) RETURNING id',
       [movie.original_title, movie.id, movie.overview, movie.release_date, movie.trailerUrl]
@@ -113,12 +119,27 @@ const getMovie = async ({token}) => {
 
 const rateMovie = async ({token, movieId, rating}) => {
   const userId = await checkAuth(token)
-  return ':)'
+  const validRatings = [-1, 1, 2]
+  if (!movieId || !rating || !validRatings.includes(rating)) {
+    throw makeError(400, 'Missing information')
+  }
+
+  try {
+    await query('INSERT INTO "Preference" ("user", movie, rating) VALUES ($1, $2, $3)', [userId, movieId, rating])
+    return {
+      status: 'ok'
+    }
+  } catch (err) {
+    throw makeError(500, 'Error saving preference')
+  }
 }
 
 const getRecommendation = async ({token}) => {
   const userId = await checkAuth(token)
-  return ':)'
+
+  // TODO: This needs to return a limited list of movies that both partners have +1'd or +2'd (or an empty array)
+  const movie = await getMovie({token})
+  return [movie, movie]
 }
 
 module.exports = {
