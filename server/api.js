@@ -107,6 +107,7 @@ const getMovie = async ({token}) => {
     )
     return {
       id: result.rows[0].id,
+      apiId: movie.id,
       title: movie.title,
       overview: movie.overview,
       releaseDate: movie.release_date,

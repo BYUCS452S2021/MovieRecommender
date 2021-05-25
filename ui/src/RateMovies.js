@@ -6,6 +6,7 @@ import {Spinner} from '@instructure/ui-spinner'
 import {Text} from '@instructure/ui-text'
 import {View} from '@instructure/ui-view'
 import {Tooltip} from '@instructure/ui-tooltip'
+import {Link} from '@instructure/ui-link'
 
 import {showAlert, doFetch} from './utils'
 import UserContext from './userContext'
@@ -59,7 +60,9 @@ const RateMovies = () => {
       ) : movie ? (
         <>
           <Heading level="h3" margin="medium 0 small">{movie.title}</Heading>
-          <Text as="div">{movie.overview}</Text>
+          <Text as="div">
+            {movie.overview} <Link href={`https://themoviedb.org/movie/${movie.apiId}`} target="_blank">(More)</Link>
+          </Text>
           <View as="div" margin="small 0">
             <Text weight="light">Released {movie.releaseDate}</Text>
           </View>

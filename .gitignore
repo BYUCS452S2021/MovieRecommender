@@ -3,6 +3,7 @@
 .env
 
 server/node_modules
+server/env
 
 ui/node_modules
 ui/.pnp
