@@ -6,10 +6,12 @@ import {View} from '@instructure/ui-view'
 import {Text} from '@instructure/ui-text'
 import {Button} from '@instructure/ui-buttons'
 import {Heading} from '@instructure/ui-heading'
+import {Pill} from '@instructure/ui-pill'
 
 import {showAlert, doFetch} from './utils'
 import UserContext from './userContext'
 import Separator from './Separator'
+import Attribution from './Attribution'
 
 const Recommendations = () => {
   const {user} = useContext(UserContext)
@@ -32,11 +34,24 @@ const Recommendations = () => {
 
   const Recommendation = ({movie}) => (
     <View as="div" margin="medium 0">
-      <Heading level="h3" margin="small 0">{movie.title}</Heading>
+      {movie.rating === 2 && (
+        <Pill as="div" margin="small 0" color="success">STRONG MATCH</Pill>
+      )}
+      {movie.rating === 1 && (
+        <Pill as="div" margin="small 0">WEAK MATCH</Pill>
+      )}
+      <Heading level="h3" margin="0 0 small">{movie.title}</Heading>
       <Text as="div">{movie.overview}</Text>
-      <View as="div" margin="small 0 medium">
+      <View as="div" margin="small 0">
         <Text weight="light">{movie.releaseDate}</Text>
       </View>
+      <Button
+        href={`https://themoviedb.org/movie/${movie.apiId}/watch`}
+        target="_blank"
+        margin="small 0 medium"
+      >
+        Watch
+      </Button>
       <Separator />
     </View>
   )
@@ -61,6 +76,7 @@ const Recommendations = () => {
       <View margin="small 0">
         {recommendations.map(r => <Recommendation movie={r} />)}
       </View>
+      <Attribution />
     </>
   ) : (
     <Button color="primary" margin="large 0" onClick={() =>fetchRecommendations()}>

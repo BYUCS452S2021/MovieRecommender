@@ -20,6 +20,7 @@
     "@instructure/ui-img": "^8.4.0",
     "@instructure/ui-link": "^8.4.0",
     "@instructure/ui-modal": "^8.4.0",
+    "@instructure/ui-pill": "^8.4.0",
     "@instructure/ui-spinner": "^8.4.0",
     "@instructure/ui-tabs": "^8.4.0",
     "@instructure/ui-text": "^8.4.0",

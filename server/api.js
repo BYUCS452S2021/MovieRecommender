@@ -87,7 +87,7 @@ const getPair = async ({token}) => {
     return {}
   }
   const partnerId = pair.rows[0].user_a === userId ? pair.rows[0].user_b : pair.rows[0].user_a
-  const response = await query('SELECT full_name, username FROM "User" WHERE id = $1', [partnerId])
+  const response = await query('SELECT id, full_name, username FROM "User" WHERE id = $1', [partnerId])
   return response.rows[0]
 }
 
@@ -138,9 +138,32 @@ const rateMovie = async ({token, movieId, rating}) => {
 const getRecommendation = async ({token}) => {
   const userId = await checkAuth(token)
 
-  // TODO: This needs to return a limited list of movies that both partners have +1'd or +2'd (or an empty array)
-  const movie = await getMovie({token})
-  return [movie, movie]
+  try {
+    const partnerRequest = await getPair({token})
+    const partnerId = partnerRequest.id
+    const response = await query(
+      'SELECT M.*, avg(rating) AS avg_rating' +
+      ' FROM "Movie" M' +
+      ' INNER JOIN "Preference" P on M.id = P.movie' +
+      ' WHERE ("user" = $1 OR "user" = $2) AND (rating = 1 OR rating = 2)' +
+      ' GROUP BY id, title, api_id, overview, release_date, trailer_url' +
+      ' HAVING count(*) > 1' +
+      ' ORDER BY avg_rating DESC' +
+      ' LIMIT 100',
+      [userId, partnerId]
+    )
+    return response.rows.map(row => ({
+      id: row.id,
+      apiId: row.api_id,
+      title: row.title,
+      overview: row.overview,
+      releaseDate: row.release_date,
+      trailerUrl: row.trailer_url,
+      rating: parseFloat(row.avg_rating)
+    }))
+  } catch (err) {
+    throw makeError(500, 'Error getting recommendations')
+  }
 }
 
 module.exports = {
