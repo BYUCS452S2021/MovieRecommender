@@ -213,11 +213,34 @@ const getPair = async ({token}) => {
   }
 }
 
+const getMovie = async ({token}) => {
+  await checkAuth(token)
+
+  // If the user's partner has some +1s or +2s, show those first
+  // TODO: Fetch a movie that the partner has +1'd or +2'd to rate first, if available
+
+  // Otherwise, get some trending movies from the Movie DB API
+  // TODO: Make this part not return movies that the user has already rated or that the partner has -1'd
+  try {
+    const movie = await movieService.getTrendingMovie()
+    return {
+      apiId: movie.id,
+      title: movie.title,
+      overview: movie.overview,
+      releaseDate: movie.release_date,
+      trailerUrl: movie.trailerUrl
+    }
+  } catch (err) {
+    throw makeError(500, 'Error getting movie')
+  }
+}
+
 module.exports = {
   makeTable,
   login,
   logout,
   createUser,
   createPair,
-  getPair
+  getPair,
+  getMovie
 }
