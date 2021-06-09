@@ -52,7 +52,7 @@ const login = async ({username, password}) => {
         'username': {S: username}
       }
     }).promise()
-    if (results.Item.hash.S !== hash(password)) {
+    if (results.Item.hash?.S !== hash(password)) {
       throw makeError(401, 'Unable to authenticate')
     }
     const token = genToken()
@@ -114,9 +114,91 @@ const createUser = async ({username, password, fullName}) => {
   return await login({username, password})
 }
 
+const createPair = async ({token, partnerUsername}) => {
+  const username = await checkAuth(token)
+
+  if (!partnerUsername) {
+    throw makeError(400, 'Missing partner username')
+  }
+
+  if (username === partnerUsername) {
+    throw makeError(400, 'You cannot pair with yourself')
+  }
+
+  const currentPartner = await getPair({token})
+  if (currentPartner?.username) {
+    throw makeError(400, 'You already have a partner')
+  }
+
+  try {
+    const partnerRequest = await dynamo.getItem({
+      TableName: 'User',
+      Key: {
+        'username': {S: partnerUsername}
+      }
+    }).promise()
+
+    if (!partnerRequest.Item.username?.S) {
+      throw makeError(400, 'Not a valid username')
+    }
+
+    if (partnerRequest.Item.partnerUsername?.S) {
+      throw makeError(400, 'This user already has a partner')
+    }
+
+    await dynamo.putItem({
+      TableName: 'User',
+      Item: {
+        'username' : {S: username},
+        'partnerUsername' : {S: partnerUsername}
+      }
+    }).promise()
+
+    return await getPair({token})
+  } catch (err) {
+    console.error(err)
+    throw makeError(500, 'Unable to create pairing')
+  }
+}
+
+const getPair = async ({token}) => {
+  const username = await checkAuth(token)
+
+  try {
+    const results = await dynamo.getItem({
+      TableName: 'User',
+      Key: {
+        'username': {S: username}
+      }
+    }).promise()
+
+    const partnerUsername = results.Item.partnerUsername?.S
+    if (!partnerUsername) {
+      return {}
+    }
+
+    const partnerResults = await dynamo.getItem({
+      TableName: 'User',
+      Key: {
+        'username': {S: partnerUsername}
+      }
+    }).promise()
+
+    return {
+      username: partnerResults.Item.username.S,
+      full_name: partnerResults.Item.full_name.S
+    }
+  } catch (err) {
+    console.error(err)
+    throw makeError(500, 'Unable to get partner')
+  }
+}
+
 module.exports = {
   makeTable,
   login,
   logout,
-  createUser
+  createUser,
+  createPair,
+  getPair
 }
