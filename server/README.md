@@ -29,7 +29,7 @@ Only configure one of the two options.
    ```
    brew services start postgresql
    ```
-1. From the `/server` directory, run `script/db_init` to get the `MovieRecommender`
+1. From the `/server` directory, run `script/pg_init` to get the `MovieRecommender`
    database set up. This script creates the database and empty tables, so it only needs to be run once.
 
 ### Setting up DynamoDB
@@ -39,3 +39,5 @@ Only configure one of the two options.
    ```
    java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
    ```
+1. From the `/server` directory, run `node script/dynamo_init.js` to get the database set up. This script creates 
+   the database and empty tables, so it only needs to be run once.

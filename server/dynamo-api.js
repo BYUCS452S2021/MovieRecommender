@@ -7,16 +7,26 @@ const dynamo = new AWS.DynamoDB({
   region: 'local'
 })
 
+// Used in the dynamo_init script
+const makeTable = async params => {
+  try {
+    const results = await dynamo.createTable(params).promise()
+    console.log(`Created table ${results.TableDescription.TableName}`)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 const login = async ({username, password}) => {
-  dynamo.listTables({}, (err, data) => {
-    if (err) {
-      console.log(err)
-    } else {
-      return data.TableNames
-    }
-  })
+  try {
+    const results = await dynamo.listTables({}).promise()
+    return results.TableNames.join('\n')
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 module.exports = {
+  makeTable,
   login
 }
