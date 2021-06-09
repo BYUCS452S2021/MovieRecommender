@@ -25,22 +25,14 @@ const {makeTable} = require('../dynamo-api.js');
     TableName: 'User',
     AttributeDefinitions: [
       {
-        AttributeName: 'id',
-        AttributeType: 'S'
-      },
-      {
-        AttributeName: 'partner_id',
+        AttributeName: 'username',
         AttributeType: 'S'
       }
     ],
     KeySchema: [
       {
-        AttributeName: 'id',
+        AttributeName: 'username',
         KeyType: 'HASH'
-      },
-      {
-        AttributeName: 'partner_id',
-        KeyType: 'RANGE'
       }
     ],
     ProvisionedThroughput: {
