@@ -1599,6 +1599,24 @@
     "@instructure/ui-view" "8.4.0"
     prop-types "^15"
 
+"@instructure/ui-link@^8.4.0":
+  version "8.4.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-link/-/ui-link-8.4.0.tgz#e03cff4c2aa6b8149cd0f9e7d4d13fd15d4906a3"
+  integrity sha512-QSaBxovCLJcMZWB4Kl97HJe82HSr599QfVEEmblBZrE5lTcQyH4OgUYUvlYTNUqcz7LlC0/quBtBa7K5XU11yA==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    "@instructure/console" "8.4.0"
+    "@instructure/emotion" "8.4.0"
+    "@instructure/ui-a11y-utils" "8.4.0"
+    "@instructure/ui-color-utils" "8.4.0"
+    "@instructure/ui-dom-utils" "8.4.0"
+    "@instructure/ui-icons" "8.4.0"
+    "@instructure/ui-prop-types" "8.4.0"
+    "@instructure/ui-react-utils" "8.4.0"
+    "@instructure/ui-testable" "8.4.0"
+    "@instructure/ui-view" "8.4.0"
+    prop-types "^15"
+
 "@instructure/ui-modal@^8.4.0":
   version "8.4.0"
   resolved "https://registry.yarnpkg.com/@instructure/ui-modal/-/ui-modal-8.4.0.tgz#5658d3333da57a6f592df375655c4c8e24dfa9fc"
@@ -1657,6 +1675,22 @@
     "@instructure/ui-view" "8.4.0"
     "@instructure/uid" "8.4.0"
     no-scroll "^2.1.0"
+    prop-types "^15"
+
+"@instructure/ui-pill@^8.4.0":
+  version "8.4.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-pill/-/ui-pill-8.4.0.tgz#82c996eaec924468d288d8e422952879eac47b59"
+  integrity sha512-wEgmeTx7Jodi3bWPcSQG/etWPaTIcAk92763Rm1b2v7PmaicFIamnSb3ulVN1o3rBSEprVmiWxd0r78hdQWJgg==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    "@instructure/console" "8.4.0"
+    "@instructure/emotion" "8.4.0"
+    "@instructure/ui-react-utils" "8.4.0"
+    "@instructure/ui-testable" "8.4.0"
+    "@instructure/ui-tooltip" "8.4.0"
+    "@instructure/ui-truncate-text" "8.4.0"
+    "@instructure/ui-utils" "8.4.0"
+    "@instructure/ui-view" "8.4.0"
     prop-types "^15"
 
 "@instructure/ui-popover@8.4.0":
@@ -1865,6 +1899,22 @@
     "@instructure/ui-react-utils" "8.4.0"
     "@instructure/ui-testable" "8.4.0"
     "@instructure/uid" "8.4.0"
+    prop-types "^15"
+
+"@instructure/ui-truncate-text@8.4.0":
+  version "8.4.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-truncate-text/-/ui-truncate-text-8.4.0.tgz#6341fc4ff7435ee2f777f907a023b932bdc579c6"
+  integrity sha512-nrC4wbZS38LAqpcnbo6BIitTyxLcpvz+4zFhJ+Tt2X/yUjionJyrEp6LEQsPUZJ4MQnBQFGNMlCtYMi2Uw1qJA==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    "@instructure/console" "8.4.0"
+    "@instructure/debounce" "8.4.0"
+    "@instructure/emotion" "8.4.0"
+    "@instructure/ui-dom-utils" "8.4.0"
+    "@instructure/ui-react-utils" "8.4.0"
+    "@instructure/ui-testable" "8.4.0"
+    "@instructure/ui-utils" "8.4.0"
+    escape-html "^1"
     prop-types "^15"
 
 "@instructure/ui-utils@8.4.0":
@@ -5091,7 +5141,7 @@ escalade@^3.0.2, escalade@^3.1.1:
   resolved "https://registry.yarnpkg.com/escalade/-/escalade-3.1.1.tgz#d8cfdc7000965c5a0174b4a82eaa5c0552742e40"
   integrity sha512-k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==
 
-escape-html@~1.0.3:
+escape-html@^1, escape-html@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
   integrity sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=

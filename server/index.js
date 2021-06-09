@@ -1,7 +1,9 @@
 const express = require('express')
 const cors = require('cors')
-const api = require('./api.js')
+const postgresApi = require('./postgres-api.js')
+const dynamoApi = require('./dynamo-api.js')
 
+const api = process.env.DB === 'dynamo' ? dynamoApi : postgresApi
 const PORT = 3001
 
 const app = express()
