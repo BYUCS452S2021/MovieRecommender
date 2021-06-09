@@ -31,8 +31,10 @@ const checkAuth = async token => {
         'token': {S: token}
       }
     }).promise()
-    if (results.Item.username.S && results.Item.valid.BOOL) {
+    if (results.Item.username?.S && results.Item.valid?.BOOL) {
       return results.Item.username.S
+    } else {
+      throw makeError(401, 'Could not authenticate')
     }
   } catch (err) {
     console.error(err)
@@ -78,11 +80,14 @@ const login = async ({username, password}) => {
 const logout = async ({token}) => {
   await checkAuth(token)
   try {
-    await dynamo.putItem({
+    await dynamo.updateItem({
       TableName: 'AuthToken',
-      Item: {
+      Key: {
         'token' : {S: token},
-        'valid' : {BOOL: false}
+      },
+      UpdateExpression: 'SET valid = :x',
+      ExpressionAttributeValues: {
+        ':x': {BOOL: false}
       }
     }).promise()
     return {status: 'ok'}
@@ -146,11 +151,25 @@ const createPair = async ({token, partnerUsername}) => {
       throw makeError(400, 'This user already has a partner')
     }
 
-    await dynamo.putItem({
+    await dynamo.updateItem({
       TableName: 'User',
-      Item: {
+      Key: {
         'username' : {S: username},
-        'partnerUsername' : {S: partnerUsername}
+      },
+      UpdateExpression: 'SET partnerUsername = :x',
+      ExpressionAttributeValues: {
+        ':x': {S: partnerUsername}
+      }
+    }).promise()
+
+    await dynamo.updateItem({
+      TableName: 'User',
+      Key: {
+        'username' : {S: partnerUsername},
+      },
+      UpdateExpression: 'SET partnerUsername = :x',
+      ExpressionAttributeValues: {
+        ':x': {S: username}
       }
     }).promise()
 
